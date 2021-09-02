@@ -13,7 +13,7 @@ select country, name
 from classes 
 join ships on classes.class=ships.class
 where name not in (select ship
-					from outcomes);*/
+		   from outcomes);
                     
 -- 2. За всеки клас британски кораби да се изведат имената им (на класовете) и 
 -- имената на всички битки, в които са участвали кораби от този клас.
