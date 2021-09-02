@@ -5,55 +5,55 @@ use pc;
 select distinct maker
 from product
 where model in(select model
-		from pc
-                where speed>=500);
+	       from pc
+               where speed>=500);
 
 /*2.2 Напишете заявка, която извежда лаптопите, чиято честота на CPU е по-ниска 
 от честотата на който и да е персонален компютър.*/
 select*
 from laptop
 where speed < all(select speed
-				from pc);
+		  from pc);
 
 /*2.3 Напишете заявка, която извежда модела на продукта (PC, лаптоп или принтер) 
 с найвисока цена.*/
 select distinct model
 from (select model, price
-		from pc
-		union all
-		select model, price
-		from laptop
-		union all
-		select model, price
-		from printer) AllProducts
+      from pc
+      union all
+      select model, price
+      from laptop
+      union all
+      select model, price
+      from printer) AllProducts
 where price >= all (select price
-					from pc
-					union all
-					select price
-					from laptop
-					union all
-					select price
-					from printer);
+		    from pc
+		    union all
+		    select price
+		    from laptop
+		    union all
+		    select price
+		    from printer);
                 
 /*2.4 Напишете заявка, която извежда производителите на цветните принтери с най-
 ниска цена.*/    
 select maker
 from product 
 where model in (select model
-				from printer 
+		from printer 
                 where color='y' and price <= all (select price 
-												from printer
-                                                where color='y'));
+						  from printer
+                                                  where color='y'));
 
 /*2.5 . Напишете заявка, която извежда производителите на тези персонални 
 компютри с най-малко RAM памет, които имат най-бързи процесори.*/
 select distinct maker
 from product 
 where model in(select model 
-				from pc 
-                where ram<=all(select ram
-								from pc) and speed>=all(select speed 
-														from pc 
-                                                        where ram<=all(select ram
-																		from pc)));
+	       from pc 
+               where ram<=all(select ram
+			      from pc) and speed>=all(select speed 
+					              from pc 
+                                                      where ram<=all(select ram
+								     from pc)));
 
