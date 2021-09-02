@@ -17,6 +17,7 @@ where speed < all(select speed
 
 /*2.3 Напишете заявка, която извежда модела на продукта (PC, лаптоп или принтер) 
 с найвисока цена.*/
+-- 1 начин.
 select distinct model
 from (select model, price
       from pc
@@ -34,6 +35,25 @@ where price >= all (select price
 		    union all
 		    select price
 		    from printer);
+-- 2 начин.
+select distinct model
+from ((select model,price
+       from laptop)
+      UNION
+      (select model,price
+       from pc)
+      UNION
+      (select model,price
+       from printer)) ModelPriceProducts
+where price >= all (select price
+		    from ((select price
+			   from laptop)
+                           UNION
+                           (select price
+                            from pc)
+                           UNION
+                           (select price
+                            from printer)) PriceProducts);
                 
 /*2.4 Напишете заявка, която извежда производителите на цветните принтери с най-
 ниска цена.*/    
@@ -47,6 +67,7 @@ where model in (select model
 
 /*2.5 . Напишете заявка, която извежда производителите на тези персонални 
 компютри с най-малко RAM памет, които имат най-бързи процесори.*/
+-- 1 начин.
 select distinct maker
 from product 
 where model in(select model 
@@ -56,4 +77,16 @@ where model in(select model
 					              from pc 
                                                       where ram<=all(select ram
 								     from pc)));
+-- 2 начин.
+select distinct maker
+from product
+where model in (select model
+		from (select model, ram, speed
+		      from pc
+                      where ram <= all (select ram
+					from pc)) SmallerRam
+		 where speed >= all (select speed
+				     from pc 
+                                     where ram <= all (select ram
+						       from pc)));
 
