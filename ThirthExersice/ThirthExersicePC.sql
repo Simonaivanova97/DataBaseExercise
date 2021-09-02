@@ -4,9 +4,9 @@ use pc;
 честота на процесора поне 500 MHz.*/
 select distinct maker
 from product
-where type='PC' and model in(select model
-							from pc
-                            where speed>500);
+where model in(select model
+		from pc
+                where speed>=500);
 
 /*2.2 Напишете заявка, която извежда лаптопите, чиято честота на CPU е по-ниска 
 от честотата на който и да е персонален компютър.*/
