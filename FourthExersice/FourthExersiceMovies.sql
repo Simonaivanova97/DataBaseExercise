@@ -27,10 +27,10 @@ where starname='Harrison Ford';
 select name
 from moviestar 
 where gender='F' and name in (select starname 
-							from starsin
-                            where movietitle in (select title
-												from movie
-                                                where studioname='MGM'));
+			      from starsin
+                              where movietitle in (select title
+						   from movie
+                                                   where studioname='MGM'));
 -- 2 начин.
 select moviestar.name
 from movie
@@ -44,7 +44,7 @@ select title, name
 from movie
 join movieexec on producerc=cert
 where producerc in (select producerc
-					from movie
+		    from movie
                     where title='Star Wars');
 
 /* 1.6 Напишете заявка, която извежда имената на актьорите, които не са участвали в
@@ -53,7 +53,7 @@ where producerc in (select producerc
 select name
 from moviestar 
 where name not in (select starname 
-					from starsin);
+		   from starsin);
 -- 2 начин.
 select name
 from moviestar
