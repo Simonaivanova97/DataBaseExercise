@@ -19,8 +19,8 @@ order by year desc, title;
 select distinct movietitle, movieyear
 from starsin
 where starname in (select name 
-					from moviestar
-                    where birthdate>='1970-01-01' and birthdate<='1980-07-01');
+		   from moviestar
+                   where birthdate>='1970-01-01' and birthdate<='1980-07-01');
                     
 use ships;
 /*4. Имената на всички кораби, за които едновременно са изпълнени следните условия:
