@@ -28,9 +28,9 @@ select class, count(name)
 from ships 
 join outcomes on name=ship
 where result='sunk' and class in  (select class
-									from ships
-									group by class
-									having count(*)>4)
+				   from ships
+				   group by class
+				   having count(*)>4)
 group by class;
 
 /*2.6 Напишете заявка, която извежда средното тегло на корабите (displacement) за 
