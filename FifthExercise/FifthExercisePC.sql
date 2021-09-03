@@ -27,12 +27,12 @@ where maker='A';
 производител ‘B’ (едно число).*/
 select avg(price)
 from ((select price
-	from pc
-    join product on pc.model=product.model and maker='B')
-    UNION all
-    (select price
-	from laptop
-    join product on laptop.model=product.model and maker='B'))PcLaptopMakerB;
+       from pc
+       join product on pc.model=product.model and maker='B')
+       UNION all
+       (select price
+        from laptop
+        join product on laptop.model=product.model and maker='B'))PcLaptopMakerB;
 
 /*1.6 Напишете заявка, която извежда средната цена на компютрите според различните 
 им честоти на процесорите.*/
@@ -52,9 +52,9 @@ having count(*)>=3;
 select distinct maker
 from product 
 where model in (select model
-				from pc 
+	        from pc 
                 where price>=all(select price 
-								from pc));
+				 from pc));
 
 /*1.9 Напишете заявка, която извежда средната цена на компютрите за всяка честота, 
 по-голяма от 800 MHz.*/
@@ -69,7 +69,7 @@ select avg(hd)
 from pc 
 join product on pc.model=product.model
 where maker in (select maker
-				from product 
+		from product 
                 where type='Printer');
 
 /*1.11 Напишете заявка, която за всеки размер на лаптоп намира разликата в цената на
