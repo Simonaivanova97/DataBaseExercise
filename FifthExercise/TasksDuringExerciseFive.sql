@@ -34,6 +34,6 @@ group by name;
 /*6. Да се изведе средният брой филми, в които са се снимали актьорите.*/
 select avg(moviescount)
 from (select count(movietitle) as moviescount
-	from moviestar
-    left join starsin on name=starname
-    group by name) star;
+      from moviestar
+      left join starsin on name=starname
+      group by name) star;
