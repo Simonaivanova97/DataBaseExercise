@@ -7,10 +7,10 @@ use movies;
 select name,birthdate
 from moviestar
 where name not like '%Ja%' and name in (select starname
-										from starsin
+					from starsin
                                         where movietitle in (select title
-															from movie
-                                                            where incolor='y'))
+							     from movie
+                                                             where incolor='y'))
 order by birthdate desc,name;
 
 /*(05.08.2020) Задача 4.2. Да се напише заявка, която извежда следната информация 
@@ -20,14 +20,24 @@ order by birthdate desc,name;
 -брой различни студиа, с които е работила.
 Ако за дадена актриса няма информация в какви филми е играла, за нея също да се изведе
 ред с горната информация, като за брой студиа се изведе 0.*/
+-- 1 начин.
+select name,year(birthdate) as YearOfBirthdate,count(distinct studioname) as differentStudios
+from moviestar
+left join starsin on name=starname
+left join movie on movietitle=title and movieyear=year
+where gender='F'
+group by name
+having count(starname)<=6;
+
+-- 2 начин.
 select name, year(birthdate) as YearOfBirthdate,count(distinct studioname) as differentStudios
 from moviestar
 left join starsin on name=starname
 left join movie on movietitle=title and movieyear=year
 where gender='F' and name in (select name
-							from moviestar
-							left join starsin on name=starname
-							group by name
-							having count(*)<=1)
+			      from moviestar
+			      left join starsin on name=starname
+			      group by name
+			      having count(*)<=6)
 group by name;
 
